@@ -1,0 +1,51 @@
+[
+    {
+        "room_number": "101",
+        "type": "Single",
+        "description": "A cozy, luxuriously appointed single room perfect for solo travelers. Features a queen-sized bed, en-suite bathroom with rainfall shower, and a private balcony overlooking the city.",
+        "price_per_night": 120.0,
+        "capacity": 1,
+        "facilities": [
+            "Free Wi-Fi",
+            "Air Conditioning",
+            "Flat-screen TV",
+            "Mini-bar"
+        ],
+        "is_available": true,
+        "is_featured": false,
+        "is_visible": true
+    },
+    {
+        "room_number": "205",
+        "type": "Double",
+        "description": "Spacious double room designed for comfort and relaxation. Includes a king-sized bed, a dedicated workspace, and a beautiful marble bathroom.",
+        "price_per_night": 180.0,
+        "capacity": 2,
+        "facilities": [
+            "Free Wi-Fi",
+            "Air Conditioning",
+            "Ocean View",
+            "Room Service"
+        ],
+        "is_available": true,
+        "is_featured": false,
+        "is_visible": true
+    },
+    {
+        "room_number": "501",
+        "type": "Suite",
+        "description": "Our premium penthouse suite offering the ultimate luxury experience. Features a separate living area, panoramic views, a private jacuzzi, and exclusive lounge access.",
+        "price_per_night": 450.0,
+        "capacity": 4,
+        "facilities": [
+            "Free Wi-Fi",
+            "Air Conditioning",
+            "Jacuzzi",
+            "Living Area",
+            "Butler Service"
+        ],
+        "is_available": true,
+        "is_featured": false,
+        "is_visible": true
+    }
+]
