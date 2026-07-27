@@ -1,0 +1,154 @@
+# ==============================================================================
+# MASTER .GITIGNORE FOR DJANGO (BACKEND) & REACT/VITE (FRONTEND) PROJECT
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. PYTHON & DJANGO (Backend)
+# ------------------------------------------------------------------------------
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+venv/
+env/
+.venv/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Django Database & Media Uploads (Do NOT commit local databases or user uploads!)
+*.sqlite3
+db.sqlite3
+db.sqlite3-journal
+backend/db.sqlite3
+backend/db.sqlite3-journal
+backend/media/
+backend/staticfiles/
+
+# Python Packaging & Distribution
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Testing & Coverage
+.coverage
+*.cover
+htmlcov/
+.pytest_cache/
+.tox/
+.noserc
+coverage.xml
+*.mo
+*.pot
+
+# ------------------------------------------------------------------------------
+# 2. NODE.JS, REACT & VITE (Frontend)
+# ------------------------------------------------------------------------------
+# Dependencies
+node_modules/
+frontend/node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+
+# Build & Production Outputs
+dist/
+frontend/dist/
+dist-ssr/
+build/
+frontend/build/
+.out/
+
+# Caches & Temporary Tools
+.vite/
+frontend/.vite/
+.eslintcache
+.stylelintcache
+.oxlintcache
+.cache/
+.next/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ------------------------------------------------------------------------------
+# 3. ENVIRONMENT VARIABLES & SECRETS (CRITICAL SECURITY)
+# ------------------------------------------------------------------------------
+# Never commit environment files containing API keys, passwords, or tokens
+.env
+.env.*
+*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+secrets.json
+private_key.pem
+*.key
+*.pem
+
+# ------------------------------------------------------------------------------
+# 4. IDE, EDITORS & OS SYSTEM FILES
+# ------------------------------------------------------------------------------
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.code-workspace
+
+# JetBrains (PyCharm, IntelliJ, WebStorm)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio / Windows IDEs
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.stackdump
+
+# AI Coding Assistants & Temporary Backup Files
+.gemini/
+.agents/
+.cursor/
+.cursorrules
+*.bak
+*.tmp
+*.swp
+*~
