@@ -46,8 +46,10 @@ def seed():
             }
         ]
 
+    valid_fields = {f.name for f in Room._meta.get_fields()}
     for room_data in rooms:
-        Room.objects.create(**room_data)
+        clean_data = {k: v for k, v in room_data.items() if k in valid_fields}
+        Room.objects.update_or_create(room_number=clean_data['room_number'], defaults=clean_data)
         
     print(f"Successfully seeded {len(rooms)} rooms.")
 
