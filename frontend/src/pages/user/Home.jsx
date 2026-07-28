@@ -112,7 +112,7 @@ const Home = () => {
                             }} 
                         />
                     </div>
-                    <div className="hero-text-container" style={{ textAlign: 'left' }}>
+                    <div className="hero-text-container" style={{ textAlign: 'left', userSelect: 'none', WebkitUserSelect: 'none' }}>
                         <div className="hero-title-wrapper">
                             <h1 className="hero-title" style={{ 
                                 fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', 
