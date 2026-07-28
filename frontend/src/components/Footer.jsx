@@ -59,17 +59,13 @@ const Footer = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="mailto:info@nsmahal.com" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>
-                                        <Mail size={18} style={{ color: 'var(--color-primary)' }} /> info@nsmahal.com
+                                    <a href="mailto:ns-mahal-palani@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>
+                                        <Mail size={18} style={{ color: 'var(--color-primary)' }} /> ns-mahal-palani@gmail.com
                                     </a>
-                                </li>
-                                <li style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-                                    <a href="#" style={{ color: 'white', opacity: 0.8, textDecoration: 'none', fontWeight: 600 }}>Facebook</a>
-                                    <a href="#" style={{ color: 'white', opacity: 0.8, textDecoration: 'none', fontWeight: 600 }}>Instagram</a>
                                 </li>
                             </ul>
                         </div>
-                        <div>
+                        <div style={{ marginTop: '1rem' }}>
                             {settings && (
                                 <a
                                     href={settings.maps_url}
@@ -77,8 +73,8 @@ const Footer = () => {
                                     rel="noopener noreferrer"
                                     style={{ display: 'inline-flex', alignItems: 'flex-start', gap: '0.75rem', color: '#F8FAFC', textDecoration: 'none', fontSize: '1rem', lineHeight: '1.5' }}
                                 >
-                                    <MapPin size={24} style={{ color: 'var(--color-primary)', flexShrink: 0 }} />
-                                    <span style={{ whiteSpace: 'nowrap' }}>{settings.address}</span>
+                                    <MapPin size={24} style={{ color: 'var(--color-primary)', flexShrink: 0, marginTop: '2px' }} />
+                                    <span style={{ display: 'block', maxWidth: '280px', whiteSpace: 'pre-line' }}>{settings.address}</span>
                                 </a>
                             )}
                         </div>
@@ -88,9 +84,9 @@ const Footer = () => {
                     <div>
                         <h4 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--color-accent)', fontWeight: 700 }}>Quick Links</h4>
                         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                            <li><Link to="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Home</Link></li>
-                            <li><Link to="/my-bookings" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>My Bookings</Link></li>
-                            <li><Link to="/auth" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Login / Register</Link></li>
+                            <li><Link to="/" onClick={() => window.scrollTo(0, 0)} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Home</Link></li>
+                            <li><Link to="/my-bookings" onClick={() => window.scrollTo(0, 0)} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>My Bookings</Link></li>
+                            <li><Link to="/auth" onClick={() => window.scrollTo(0, 0)} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Login / Register</Link></li>
                         </ul>
                     </div>
 
