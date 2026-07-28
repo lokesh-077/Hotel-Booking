@@ -28,11 +28,6 @@ const Navbar = () => {
         >
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
                 <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <img 
-                        src="/palani_murugan.jpg" 
-                        alt="NS Mahal Logo" 
-                        style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', boxShadow: 'var(--shadow-sm)' }} 
-                    />
                     <h2 className="text-gradient nav-logo-text" style={{ margin: 0, fontSize: '1.75rem', letterSpacing: '-0.02em', fontWeight: 700 }}>NS Mahal, Palani</h2>
                 </Link>
 
