@@ -80,7 +80,10 @@ const Navbar = () => {
                         </>
                     ) : (
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                            <Link to="/auth" className="btn btn-primary btn-mobile-clear">Sign Up / Login</Link>
+                            <Link to="/auth" className="btn btn-primary btn-mobile-clear" style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center' }}>
+                                <User size={20} />
+                                <span className="desktop-only" style={{ marginLeft: '0.5rem' }}>Sign Up / Login</span>
+                            </Link>
                         </div>
                     )}
                 </div>
