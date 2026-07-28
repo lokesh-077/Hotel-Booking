@@ -48,7 +48,7 @@ const Footer = () => {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '4rem', textAlign: 'left', marginBottom: '3rem' }}>
 
                     {/* Column 1: Contact & Address */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                         <div>
                             <h4 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--color-accent)', fontWeight: 700 }}>Contact Us</h4>
                             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -65,7 +65,7 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div style={{ marginTop: '1rem' }}>
+                        <div>
                             {settings && (
                                 <a
                                     href={settings.maps_url}
