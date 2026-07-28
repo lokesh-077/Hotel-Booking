@@ -9,6 +9,7 @@ import { Check, CheckCircle2 } from 'lucide-react';
 
 const Home = () => {
     const [rooms, setRooms] = useState([]);
+    const [roomFilter, setRoomFilter] = useState('All');
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user } = useAuth();
@@ -245,14 +246,23 @@ const Home = () => {
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                             <h2>Our Rooms</h2>
+                            <select 
+                                value={roomFilter}
+                                onChange={(e) => setRoomFilter(e.target.value)}
+                                style={{ padding: '0.6rem 1.25rem', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-border)', outline: 'none', background: 'var(--color-surface)', fontSize: '0.95rem', fontWeight: 600, color: 'var(--color-primary)', cursor: 'pointer', boxShadow: 'var(--shadow-sm)' }}
+                            >
+                                {['All', ...new Set(rooms.map(r => r.type))].map(type => (
+                                    <option key={type} value={type}>{type === 'All' ? 'All Rooms' : type}</option>
+                                ))}
+                            </select>
                         </div>
 
                         {loading ? <p>Loading rooms...</p> : (
                             <div className="grid-auto">
-                                {rooms.map(room => (
+                                {(roomFilter === 'All' ? rooms : rooms.filter(r => r.type === roomFilter)).map(room => (
                                     <RoomCard key={room.id} room={room} />
                                 ))}
-                                {rooms.length === 0 && <p>No rooms available.</p>}
+                                {(roomFilter === 'All' ? rooms : rooms.filter(r => r.type === roomFilter)).length === 0 && <p>No rooms available in this category.</p>}
                             </div>
                         )}
                     </>
