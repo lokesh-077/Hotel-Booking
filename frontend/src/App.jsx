@@ -8,6 +8,7 @@ import RoomDetail from './pages/user/RoomDetail';
 import BillPage from './pages/user/BillPage';
 import AuthPage from './pages/auth/AuthPage';
 import MyBookings from './pages/user/MyBookings';
+import LegalPage from './pages/LegalPage';
 import AdminDashboard from './pages/admin/Dashboard';
 import ManageRooms from './pages/admin/ManageRooms';
 import ManageSettings from './pages/admin/ManageSettings';
@@ -35,6 +36,7 @@ function App() {
                             <Route path="/admin/settings" element={<AdminRoute><ManageSettings /></AdminRoute>} />
                             <Route path="/admin/reviews" element={<AdminRoute><ManageReviews /></AdminRoute>} />
                             <Route path="/auth" element={<AuthPage />} />
+                            <Route path="/legal/:type" element={<LegalPage />} />
                         </Routes>
                     </main>
                     <Footer />

@@ -94,9 +94,9 @@ const Footer = () => {
                     <div>
                         <h4 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--color-accent)', fontWeight: 700 }}>Legal</h4>
                         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                            <li><a href="#" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Terms & Conditions</a></li>
-                            <li><a href="#" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Privacy Policy</a></li>
-                            <li><a href="#" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Cancellation & Refund Policy</a></li>
+                            <li><Link to="/legal/terms" onClick={() => window.scrollTo(0, 0)} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Terms & Conditions</Link></li>
+                            <li><Link to="/legal/privacy" onClick={() => window.scrollTo(0, 0)} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Privacy Policy</Link></li>
+                            <li><Link to="/legal/cancellation" onClick={() => window.scrollTo(0, 0)} style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Cancellation & Refund Policy</Link></li>
                         </ul>
                     </div>
                 </div>

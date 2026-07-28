@@ -6,7 +6,10 @@ const ManageSettings = () => {
     const [formData, setFormData] = useState({
         address: '',
         maps_url: '',
-        phone_number: ''
+        phone_number: '',
+        terms_conditions: '',
+        privacy_policy: '',
+        cancellation_policy: ''
     });
     const [loading, setLoading] = useState(true);
 
@@ -79,6 +82,36 @@ const ManageSettings = () => {
                             required 
                         />
                     </div>
+                    
+                    <h3 style={{ marginTop: '2rem', marginBottom: '1rem', color: 'var(--color-primary)' }}>Legal Policies</h3>
+                    <div className="input-group">
+                        <label>Terms & Conditions</label>
+                        <textarea 
+                            name="terms_conditions" 
+                            value={formData.terms_conditions || ''} 
+                            onChange={handleChange} 
+                            rows="6" 
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>Privacy Policy</label>
+                        <textarea 
+                            name="privacy_policy" 
+                            value={formData.privacy_policy || ''} 
+                            onChange={handleChange} 
+                            rows="6" 
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>Cancellation & Refund Policy</label>
+                        <textarea 
+                            name="cancellation_policy" 
+                            value={formData.cancellation_policy || ''} 
+                            onChange={handleChange} 
+                            rows="6" 
+                        />
+                    </div>
+
                     <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem' }}>
                         Save Settings
                     </button>
