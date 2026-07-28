@@ -56,11 +56,16 @@ def seed():
     # Automatically create superuser for Django Admin on Free tier
     from django.contrib.auth import get_user_model
     User = get_user_model()
-    if not User.objects.filter(is_superuser=True).exists():
-        User.objects.create_superuser('admin', 'admin@nsmahal.com', 'Admin@12345')
+    admin_user = User.objects.filter(username='admin').first()
+    
+    if not admin_user:
+        admin_user = User.objects.create_superuser('admin', 'admin@nsmahal.com', 'Admin@12345')
         print("Successfully created Django Admin superuser -> username: admin | password: Admin@12345")
-    else:
-        print("Admin superuser already exists.")
+    
+    if admin_user.role != 'admin':
+        admin_user.role = 'admin'
+        admin_user.save()
+        print("Fixed admin user role for frontend access!")
 
 if __name__ == '__main__':
     seed()
