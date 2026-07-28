@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api/'
+    baseURL: isLocal 
+        ? 'http://localhost:8000/api/' 
+        : 'https://ns-mahal-backend.onrender.com/api/'
 });
 
 // Request interceptor to add JWT to every request
