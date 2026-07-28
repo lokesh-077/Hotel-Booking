@@ -182,6 +182,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'EXCEPTION_HANDLER': 'config.exceptions.custom_exception_handler',
 }
 
 # Razorpay settings (Loaded securely from environment variables / .env)
@@ -197,8 +198,23 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')  # 16-character Google App Password
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'noreply@nsmahal.com')
 
-# Cloudinary settings automatically loaded from CLOUDINARY_URL env variable
-
+# Cloudinary settings automatically parsed from CLOUDINARY_URL
+cloudinary_url = os.environ.get('CLOUDINARY_URL', '')
+if cloudinary_url.startswith('cloudinary://'):
+    keys, cloud_name = cloudinary_url.replace('cloudinary://', '').split('@')
+    api_key, api_secret = keys.split(':')
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': cloud_name,
+        'API_KEY': api_key,
+        'API_SECRET': api_secret,
+    }
+else:
+    # Fallback to separate keys if provided
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    }
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
