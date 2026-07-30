@@ -202,8 +202,8 @@ const ManageRooms = () => {
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                                    <button onClick={() => handleToggleVisibility(room)} className="btn btn-outline" style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderColor: room.is_visible ? 'var(--color-primary)' : 'var(--color-border)' }} title={room.is_visible ? "Hide room from users" : "Show room to users"}>
-                                        {room.is_visible ? <Eye size={18} color="var(--color-primary)" /> : <EyeOff size={18} color="var(--color-text-light)" />}
+                                    <button onClick={() => handleToggleVisibility(room)} className="btn" style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', background: room.is_visible ? '#D1FAE5' : '#FEE2E2', border: `1px solid ${room.is_visible ? '#10B981' : '#EF4444'}` }} title={room.is_visible ? "Hide room from users" : "Show room to users"}>
+                                        {room.is_visible ? <Eye size={18} color="#065F46" /> : <EyeOff size={18} color="#991B1B" />}
                                     </button>
                                     <button onClick={() => handleEdit(room)} className="btn btn-outline" style={{ padding: '0.5rem 1rem' }}>Edit</button>
                                     <button onClick={() => handleDelete(room.id)} className="btn btn-outline" style={{ padding: '0.5rem 1rem', color: 'var(--color-error)', borderColor: 'var(--color-error)' }}>Delete</button>
