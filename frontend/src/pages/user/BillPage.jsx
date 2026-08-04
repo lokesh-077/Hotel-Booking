@@ -64,8 +64,7 @@ const BillPage = () => {
                             razorpay_order_id: response.razorpay_order_id,
                             razorpay_signature: response.razorpay_signature
                         });
-                        alert('Payment successful! Booking confirmed.');
-                        navigate('/my-bookings');
+                        navigate('/booking-success');
                     } catch (err) {
                         alert('Payment verification failed.');
                     }

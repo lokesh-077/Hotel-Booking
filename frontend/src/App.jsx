@@ -8,6 +8,7 @@ import RoomDetail from './pages/user/RoomDetail';
 import BillPage from './pages/user/BillPage';
 import AuthPage from './pages/auth/AuthPage';
 import MyBookings from './pages/user/MyBookings';
+import BookingSuccess from './pages/user/BookingSuccess';
 import LegalPage from './pages/LegalPage';
 import AdminDashboard from './pages/admin/Dashboard';
 import ManageRooms from './pages/admin/ManageRooms';
@@ -30,6 +31,7 @@ function App() {
                             <Route path="/cart" element={<CartPage />} />
                             <Route path="/room/:id" element={<RoomDetail />} />
                             <Route path="/bill/:id" element={<BillPage />} />
+                            <Route path="/booking-success" element={<BookingSuccess />} />
                             <Route path="/my-bookings" element={<MyBookings />} />
                             <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
                             <Route path="/admin/rooms" element={<AdminRoute><ManageRooms /></AdminRoute>} />
