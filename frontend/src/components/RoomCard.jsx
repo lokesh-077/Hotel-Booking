@@ -1,8 +1,26 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Users, Wifi, Coffee } from 'lucide-react';
 
 const RoomCard = ({ room, index }) => {
+    const allImages = [
+        ...(room.image ? [room.image] : []),
+        ...(room.images ? room.images.map(img => img.image) : [])
+    ];
+    
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const nextImage = (e) => {
+        e.preventDefault();
+        setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+    };
+
+    const prevImage = (e) => {
+        e.preventDefault();
+        setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+    };
+
     return (
         <motion.div 
             className="room-card"
@@ -21,8 +39,36 @@ const RoomCard = ({ room, index }) => {
             whileHover={{ y: -5, boxShadow: 'var(--shadow-md)' }}
         >
             <div style={{ height: '220px', backgroundColor: '#e2e8f0', position: 'relative' }}>
-                {room.image ? (
-                    <img src={room.image} alt={room.type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                {allImages.length > 0 ? (
+                    <>
+                        <img 
+                            src={allImages[currentImageIndex]} 
+                            alt={room.type} 
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                        />
+                        {allImages.length > 1 && (
+                            <>
+                                <button 
+                                    onClick={prevImage}
+                                    style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 2 }}
+                                >
+                                    &#10094;
+                                </button>
+                                <button 
+                                    onClick={nextImage}
+                                    style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.5)', color: 'white', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 2 }}
+                                >
+                                    &#10095;
+                                </button>
+                                
+                                <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '5px', zIndex: 2 }}>
+                                    {allImages.map((_, i) => (
+                                        <div key={i} style={{ width: '6px', height: '6px', borderRadius: '50%', background: i === currentImageIndex ? 'white' : 'rgba(255,255,255,0.4)' }} />
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </>
                 ) : (
                     <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-light)' }}>
                         No Image Available
