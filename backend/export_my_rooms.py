@@ -22,6 +22,7 @@ def export_rooms():
             "price_per_night": float(r.price_per_night),
             "capacity": r.capacity,
             "facilities": r.facilities if isinstance(r.facilities, list) else [],
+            "image": str(r.image) if r.image else None,
             "is_available": r.is_available,
             "is_featured": getattr(r, 'is_featured', False),
             "is_visible": getattr(r, 'is_visible', True),

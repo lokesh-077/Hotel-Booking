@@ -44,6 +44,10 @@ const ImageCarousel = ({ images }) => {
                     transition={{ duration: 0 }}
                     style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }}
                     alt="Room view"
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80';
+                    }}
                 />
             </AnimatePresence>
             

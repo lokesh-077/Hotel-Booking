@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../../services/api';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
+import { getImageUrl } from '../../utils/imageUrl';
 
 const ManageRooms = () => {
     const [rooms, setRooms] = useState([]);
@@ -195,7 +196,15 @@ const ManageRooms = () => {
                         {rooms.map(room => (
                             <div key={room.id} style={{ background: 'var(--color-surface)', padding: '1.5rem', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-sm)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                    {room.image && <img src={room.image} alt={room.type} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px' }} />}
+                                    <img 
+                                        src={getImageUrl(room.image, room.type)} 
+                                        alt={room.type} 
+                                        style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px' }} 
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = getImageUrl(null, room.type);
+                                        }}
+                                    />
                                     <div>
                                         <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>Room {room.room_number} ({room.type})</h3>
                                         <p style={{ color: 'var(--color-text-light)', fontSize: '0.9rem' }}>₹{room.price_per_night}/night • Capacity: {room.capacity}</p>

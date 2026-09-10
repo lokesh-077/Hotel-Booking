@@ -7,11 +7,21 @@ django.setup()
 
 from users.models import User
 
-# Find Admin
-admin = User.objects.filter(username='Admin').first()
-if admin:
-    admin.set_password('admin123')
-    admin.save()
-    print("Password set to admin123 for user:", admin.username)
+# Ensure admin user exists with username 'admin', role 'admin', and password 'admin123'
+user = User.objects.filter(username__iexact='admin').first()
+if not user:
+    user = User.objects.filter(phone='7010276853').first()
+
+if not user:
+    user = User.objects.create_superuser('admin', 'admin@nsmahal.com', 'admin123')
+    user.role = 'admin'
+    user.phone = '7010276853'
+    user.save()
+    print("Created new admin user -> username: admin | phone: 7010276853 | password: admin123")
 else:
-    print("Admin user not found!")
+    user.username = 'admin'
+    user.role = 'admin'
+    user.phone = '7010276853'
+    user.set_password('admin123')
+    user.save()
+    print("Admin user updated -> username: admin | phone: 7010276853 | password: admin123")

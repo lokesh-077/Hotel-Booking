@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { User, Lock, Phone, KeyRound, UserPlus, LogIn, Send, Mail } from 'lucide-react';
+import { User, Lock, Phone, KeyRound, UserPlus, LogIn, Send, Mail, Eye, EyeOff } from 'lucide-react';
 import api from '../../services/api';
 
 const AuthPage = () => {
@@ -15,6 +15,10 @@ const AuthPage = () => {
     const [phone, setPhone] = useState('');
     const [otp, setOtp] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    
+    // Show/hide password state
+    const [showPassword, setShowPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -236,7 +240,7 @@ const AuthPage = () => {
 
                         <div style={{ marginBottom: '1.5rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: 'var(--color-text-light)' }}>
-                                Phone Number
+                                {authMode === 'login' ? 'Phone Number or Admin ID' : 'Phone Number'}
                             </label>
                             <div style={{ position: 'relative' }}>
                                 <Phone size={20} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-light)' }} />
@@ -250,7 +254,7 @@ const AuthPage = () => {
                                             setPhone(e.target.value);
                                         }
                                     }}
-                                    placeholder="10-digit phone number"
+                                    placeholder={authMode === 'login' ? "Enter phone number or 'admin'" : "10-digit phone number"}
                                     required
                                     style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 3rem', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '1rem', background: 'var(--color-background)' }}
                                 />
@@ -262,13 +266,34 @@ const AuthPage = () => {
                             <div style={{ position: 'relative' }}>
                                 <Lock size={20} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-light)' }} />
                                 <input 
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                     placeholder="Enter password"
                                     required
-                                    style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 3rem', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '1rem', background: 'var(--color-background)' }}
+                                    style={{ width: '100%', padding: '0.75rem 2.8rem 0.75rem 3rem', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '1rem', background: 'var(--color-background)' }}
                                 />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '0.85rem',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        padding: '0.25rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: 'var(--color-text-light)'
+                                    }}
+                                    title={showPassword ? "Hide password" : "Show password"}
+                                >
+                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
                             </div>
                         </div>
                         
@@ -366,13 +391,34 @@ const AuthPage = () => {
                             <div style={{ position: 'relative' }}>
                                 <Lock size={20} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-light)' }} />
                                 <input 
-                                    type="password"
+                                    type={showNewPassword ? "text" : "password"}
                                     value={newPassword}
                                     onChange={e => setNewPassword(e.target.value)}
                                     placeholder="Enter new password"
                                     required
-                                    style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 3rem', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '1rem', background: 'var(--color-background)' }}
+                                    style={{ width: '100%', padding: '0.75rem 2.8rem 0.75rem 3rem', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '1rem', background: 'var(--color-background)' }}
                                 />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowNewPassword(!showNewPassword)}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '0.85rem',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        padding: '0.25rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: 'var(--color-text-light)'
+                                    }}
+                                    title={showNewPassword ? "Hide password" : "Show password"}
+                                >
+                                    {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
                             </div>
                         </div>
 

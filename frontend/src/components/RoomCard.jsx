@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Users, Wifi, Coffee } from 'lucide-react';
+import { getImageUrl } from '../utils/imageUrl';
 
 const RoomCard = ({ room, index }) => {
     return (
@@ -21,13 +22,15 @@ const RoomCard = ({ room, index }) => {
             whileHover={{ y: -5, boxShadow: 'var(--shadow-md)' }}
         >
             <div style={{ height: '220px', backgroundColor: '#e2e8f0', position: 'relative' }}>
-                {room.image ? (
-                    <img src={room.image} alt={room.type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                ) : (
-                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-light)' }}>
-                        No Image Available
-                    </div>
-                )}
+                <img 
+                    src={getImageUrl(room.image, room.type)} 
+                    alt={room.type} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = getImageUrl(null, room.type);
+                    }}
+                />
                 <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'var(--color-surface)', padding: '0.25rem 0.75rem', borderRadius: 'var(--radius-full)', fontWeight: 600, fontSize: '0.875rem' }}>
                     ₹{room.price_per_night} / night
                 </div>

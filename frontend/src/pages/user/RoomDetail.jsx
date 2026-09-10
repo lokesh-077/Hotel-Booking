@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Users, Wifi, Coffee, Check, Shield } from 'lucide-react';
 import BookingForm from './BookingForm';
 import ImageCarousel from '../../components/ImageCarousel';
+import { getImageUrl } from '../../utils/imageUrl';
 
 const RoomDetail = () => {
     const { id } = useParams();
@@ -31,10 +32,14 @@ const RoomDetail = () => {
     if (loading) return <div style={{ textAlign: 'center', padding: '4rem' }}>Loading details...</div>;
     if (!room) return <div style={{ textAlign: 'center', padding: '4rem' }}>Room not found.</div>;
 
-    const allImages = [
+    const rawImages = [
         ...(room.image ? [room.image] : []),
         ...(room.images ? room.images.map(img => img.image) : [])
     ];
+
+    const allImages = rawImages.length > 0
+        ? rawImages.map(img => getImageUrl(img, room.type))
+        : [getImageUrl(null, room.type)];
 
     return (
         <div className="container" style={{ padding: '2rem 1.5rem 4rem' }}>
@@ -50,13 +55,7 @@ const RoomDetail = () => {
                     overflow: 'hidden'
                 }}
             >
-                {allImages.length > 0 ? (
-                    <ImageCarousel images={allImages} />
-                ) : (
-                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', color: 'var(--color-text-light)' }}>
-                        No Image Available
-                    </div>
-                )}
+                <ImageCarousel images={allImages} />
             </motion.div>
 
             <div className="grid-2-1">

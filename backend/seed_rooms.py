@@ -12,8 +12,7 @@ def seed():
         import json
         with open(custom_file, 'r', encoding='utf-8') as f:
             rooms = json.load(f)
-        print(f"Found my_custom_rooms.json! Clearing default rooms and loading {len(rooms)} custom rooms...")
-        Room.objects.all().delete()
+        print(f"Found my_custom_rooms.json! Processing {len(rooms)} custom rooms...")
     else:
         if Room.objects.exists():
             print("Rooms already seeded.")
@@ -49,6 +48,9 @@ def seed():
     valid_fields = {f.name for f in Room._meta.get_fields()}
     for room_data in rooms:
         clean_data = {k: v for k, v in room_data.items() if k in valid_fields}
+        existing = Room.objects.filter(room_number=clean_data['room_number']).first()
+        if existing and existing.image and 'image' not in clean_data:
+            clean_data['image'] = existing.image
         Room.objects.update_or_create(room_number=clean_data['room_number'], defaults=clean_data)
         
     print(f"Successfully seeded {len(rooms)} rooms.")

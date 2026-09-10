@@ -50,8 +50,6 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'corsheaders',
-    'cloudinary_storage',
-    'cloudinary',
 
     # Local apps
     'users',
@@ -198,8 +196,22 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')  # 16-character Google App Password
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'noreply@nsmahal.com')
 
-# Cloudinary settings automatically parsed from CLOUDINARY_URL
+# Cloudinary / Media storage settings
+CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME')
+CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
+CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
 cloudinary_url = os.environ.get('CLOUDINARY_URL', '')
+
+HAS_CLOUDINARY_PKG = False
+try:
+    import cloudinary_storage
+    import cloudinary
+    HAS_CLOUDINARY_PKG = True
+    INSTALLED_APPS += ['cloudinary_storage', 'cloudinary']
+except ImportError:
+    HAS_CLOUDINARY_PKG = False
+
+IS_CLOUDINARY_CONFIGURED = False
 if cloudinary_url.startswith('cloudinary://'):
     keys, cloud_name = cloudinary_url.replace('cloudinary://', '').split('@')
     api_key, api_secret = keys.split(':')
@@ -208,18 +220,32 @@ if cloudinary_url.startswith('cloudinary://'):
         'API_KEY': api_key,
         'API_SECRET': api_secret,
     }
-else:
-    # Fallback to separate keys if provided
+    IS_CLOUDINARY_CONFIGURED = True
+elif CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET:
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-        'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+        'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
+        'API_KEY': CLOUDINARY_API_KEY,
+        'API_SECRET': CLOUDINARY_API_SECRET,
     }
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+    IS_CLOUDINARY_CONFIGURED = True
+else:
+    CLOUDINARY_STORAGE = {}
+
+if HAS_CLOUDINARY_PKG and IS_CLOUDINARY_CONFIGURED:
+    STORAGES = {
+        "default": {
+            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
