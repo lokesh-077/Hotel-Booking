@@ -231,7 +231,10 @@ elif CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET:
 else:
     CLOUDINARY_STORAGE = {}
 
-if HAS_CLOUDINARY_PKG and IS_CLOUDINARY_CONFIGURED:
+# Use Cloudinary in production (DEBUG=False) or if explicitly forced with USE_CLOUDINARY=True
+USE_CLOUDINARY = os.environ.get('USE_CLOUDINARY', 'False').lower() == 'true' or (not DEBUG)
+
+if USE_CLOUDINARY and HAS_CLOUDINARY_PKG and IS_CLOUDINARY_CONFIGURED:
     STORAGES = {
         "default": {
             "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",

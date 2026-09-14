@@ -127,10 +127,10 @@ const ManageRooms = () => {
 
         try {
             if (isEditing) {
-                await api.patch(`rooms/${formData.id}/`, payload, { headers: { 'Content-Type': 'multipart/form-data' } });
+                await api.patch(`rooms/${formData.id}/`, payload);
                 setStatusMsg(`Room ${formData.room_number} updated successfully!`);
             } else {
-                await api.post('rooms/', payload, { headers: { 'Content-Type': 'multipart/form-data' } });
+                await api.post('rooms/', payload);
                 setStatusMsg(`Room ${formData.room_number} added successfully!`);
             }
             fetchRooms();
@@ -176,10 +176,23 @@ const ManageRooms = () => {
                         <div className="input-group">
                             <label>Room Thumbnail Image</label>
                             <input type="file" name="image" id="room_image" onChange={handleChange} accept="image/*" />
+                            {formData.image && (
+                                <div style={{ marginTop: '0.5rem' }}>
+                                    <p style={{ fontSize: '0.8rem', color: 'var(--color-text-light)', marginBottom: '0.25rem' }}>Selected image:</p>
+                                    <img src={URL.createObjectURL(formData.image)} alt="Preview" style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', border: '2px solid var(--color-primary)' }} />
+                                </div>
+                            )}
                         </div>
                         <div className="input-group">
                             <label>Gallery Images (Select Multiple)</label>
                             <input type="file" name="gallery_images" id="gallery_images" onChange={handleChange} accept="image/*" multiple />
+                            {formData.gallery_images && formData.gallery_images.length > 0 && (
+                                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                                    {formData.gallery_images.map((file, idx) => (
+                                        <img key={idx} src={URL.createObjectURL(file)} alt="Gallery Preview" style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #ccc' }} />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                         <div className="input-group">
                             <label>Facilities (comma separated)</label>
