@@ -27,7 +27,14 @@ class RoomViewSet(viewsets.ModelViewSet):
         return Response(self.get_serializer(room).data)
 
     def update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
         response = super().update(request, *args, **kwargs)
+        room = self.get_object()
+        self._handle_gallery_images(request, room)
+        return Response(self.get_serializer(room).data)
+
+    def partial_update(self, request, *args, **kwargs):
+        response = super().partial_update(request, *args, **kwargs)
         room = self.get_object()
         self._handle_gallery_images(request, room)
         return Response(self.get_serializer(room).data)

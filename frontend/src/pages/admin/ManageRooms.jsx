@@ -8,6 +8,7 @@ const ManageRooms = () => {
     const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
+    const [statusMsg, setStatusMsg] = useState('');
     
     const [formData, setFormData] = useState({
         id: null,
@@ -54,7 +55,7 @@ const ManageRooms = () => {
             price_per_night: room.price_per_night,
             capacity: room.capacity,
             description: room.description,
-            facilities: room.facilities.join(', '),
+            facilities: Array.isArray(room.facilities) ? room.facilities.join(', ') : (typeof room.facilities === 'string' ? room.facilities : ''),
             image: null,
             gallery_images: []
         });
@@ -126,12 +127,15 @@ const ManageRooms = () => {
 
         try {
             if (isEditing) {
-                await api.put(`rooms/${formData.id}/`, payload, { headers: { 'Content-Type': 'multipart/form-data' } });
+                await api.patch(`rooms/${formData.id}/`, payload, { headers: { 'Content-Type': 'multipart/form-data' } });
+                setStatusMsg(`Room ${formData.room_number} updated successfully!`);
             } else {
                 await api.post('rooms/', payload, { headers: { 'Content-Type': 'multipart/form-data' } });
+                setStatusMsg(`Room ${formData.room_number} added successfully!`);
             }
             fetchRooms();
             resetForm();
+            setTimeout(() => setStatusMsg(''), 4000);
         } catch (err) {
             console.error(err);
             alert("Failed to save room details.");
@@ -142,6 +146,11 @@ const ManageRooms = () => {
         <div className="container grid-1-2" style={{ padding: '4rem 1.5rem' }}>
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
                 <h2>{isEditing ? 'Edit Room' : 'Add New Room'}</h2>
+                {statusMsg && (
+                    <div style={{ background: '#DCFCE7', color: '#166534', padding: '0.75rem 1rem', borderRadius: '8px', marginTop: '1rem', fontWeight: 500 }}>
+                        {statusMsg}
+                    </div>
+                )}
                 <div style={{ background: 'var(--color-surface)', padding: '2rem', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-sm)', marginTop: '1.5rem' }}>
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
