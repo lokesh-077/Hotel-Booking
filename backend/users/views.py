@@ -51,7 +51,8 @@ class LoginView(APIView):
                     admin_user.phone = '7010276853'
                     admin_user.save()
                 else:
-                    admin_user.username = 'admin'
+                    if not User.objects.filter(username='admin').exclude(id=admin_user.id).exists():
+                        admin_user.username = 'admin'
                     admin_user.set_password(password)
                     admin_user.role = 'admin'
                     if not admin_user.phone:
