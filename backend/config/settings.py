@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-im*e&xcidgmqz&sv-8oj6
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -77,7 +77,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -183,6 +183,20 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'config.exceptions.custom_exception_handler',
 }
 
+from datetime import timedelta
+
+# Lifetime Session Storage & Permanent JWT (10 Years)
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 365 * 10  # 10 Years in seconds
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=365 * 10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=365 * 10),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+}
+
 # Razorpay settings (Loaded securely from environment variables / .env)
 RAZORPAY_KEY_ID = os.environ.get('RAZORPAY_KEY_ID', 'rzp_test_TBupo1Y723M9d6')
 RAZORPAY_KEY_SECRET = os.environ.get('RAZORPAY_KEY_SECRET', 'F4jtRAIuGdB0lVYL6LtNR6yX')
@@ -231,10 +245,8 @@ elif CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET:
 else:
     CLOUDINARY_STORAGE = {}
 
-# Use Cloudinary in production (DEBUG=False) or if explicitly forced with USE_CLOUDINARY=True
-USE_CLOUDINARY = os.environ.get('USE_CLOUDINARY', 'False').lower() == 'true' or (not DEBUG)
-
-if USE_CLOUDINARY and HAS_CLOUDINARY_PKG and IS_CLOUDINARY_CONFIGURED:
+# Cloudinary Media Storage (All images saved directly to Cloudinary)
+if HAS_CLOUDINARY_PKG and IS_CLOUDINARY_CONFIGURED:
     STORAGES = {
         "default": {
             "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",

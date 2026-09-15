@@ -10,6 +10,7 @@ import AuthPage from './pages/auth/AuthPage';
 import MyBookings from './pages/user/MyBookings';
 import BookingSuccess from './pages/user/BookingSuccess';
 import LegalPage from './pages/LegalPage';
+import NotFound from './pages/NotFound';
 import AdminDashboard from './pages/admin/Dashboard';
 import ManageRooms from './pages/admin/ManageRooms';
 import ManageSettings from './pages/admin/ManageSettings';
@@ -39,6 +40,7 @@ function App() {
                             <Route path="/admin/reviews" element={<AdminRoute><ManageReviews /></AdminRoute>} />
                             <Route path="/auth" element={<AuthPage />} />
                             <Route path="/legal/:type" element={<LegalPage />} />
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
                     </main>
                     <Footer />

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | NS Mahal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            background: #ffffff;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e2e8f0;
+        }
+        .code {
+            font-size: 5rem;
+            font-weight: 800;
+            color: #d97706;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+        p {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #d97706;
+            color: #ffffff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #b45309;
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        .btn-outline:hover {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="code">404</div>
+        <h1>Page Not Found</h1>
+        <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+        <div class="btn-group">
+            <a href="/" class="btn btn-primary" id="homeLink">Return to Website</a>
+            <button onclick="window.history.back()" class="btn btn-outline">Go Back</button>
+        </div>
+    </div>
+
+    <script>
+        // If accessed via backend port 8000 during development, route back to frontend port 5173
+        if (window.location.port === '8000') {
+            document.getElementById('homeLink').href = 'http://localhost:5173/';
+        }
+    </script>
+</body>
+</html>
